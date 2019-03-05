@@ -5,7 +5,8 @@ module Debounce(clk, in, out);
     input in;
     output out;
 
-    reg clkSlow, cleaner, clean, pulse;
+    reg cleaner, clean, pulse;
+    wire clkSlow;
     milsec50(clk, clkSlow);
     assign out = pulse & clean;
     always@(posedge clkSlow) begin
