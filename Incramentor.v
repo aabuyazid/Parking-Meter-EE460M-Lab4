@@ -20,16 +20,16 @@ module Incrementer(clk, u, l, r, d, sw0, sw1, timeIn, timeOut);
     Debounce b4 (clk, sw0, SW0);
     Debounce b5 (clk, sw1, SW1);
     
-    assign timeOut = timeCurrent; 
-    always@(U,L,R,D,SW0,SW1) begin
+    assign timeOut = (timeCurrent < 9999)? timeCurrent : 9999; 
+    always@(U,L,R,D,SW0,SW1, timeIn) begin
         case({U,L,R,D,SW0,SW1})
-            6'b100000 : timeCurrent = timeCurrent + 10;
-            6'b010000 : timeCurrent = timeCurrent + 180;
-            6'b001000 : timeCurrent = timeCurrent + 200;
-            6'b000100 : timeCurrent = timeCurrent + 550;
-            6'b000010 : timeCurrent = 10;
-            6'b000001 : timeCurrent = 205;
-            default   : timeCurrent = timeIn;
+            6'b100000 : timeCurrent <= timeCurrent + 10;
+            6'b010000 : timeCurrent <= timeCurrent + 180;
+            6'b001000 : timeCurrent <= timeCurrent + 200;
+            6'b000100 : timeCurrent <= timeCurrent + 550;
+            6'b000010 : timeCurrent <= 10;
+            6'b000001 : timeCurrent <= 205;
+            default   : timeCurrent <= timeIn;
         endcase
         end
 endmodule
