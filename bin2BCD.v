@@ -2,7 +2,6 @@
 
 module bin2BCD(
     input [15:0] bin_value,
-    input is_miles,
     output reg [15:0] BCD_value 
     );
     reg [15:0] temp;

@@ -17,3 +17,4 @@ begin
     else
     second_divider <= second_divider + 1;
 end
+endmodule

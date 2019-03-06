@@ -15,7 +15,7 @@ wire slow_clk, second;
 
 SSEGClkDivider div1 (.clk(clk), .slow_clk(slow_clk));
 
-bin2BCD b1 (.bin_value(fitbit_data),.BCD_value(digits));
+bin2BCD b1 (.bin_value(meter_data),.BCD_value(digits));
 
 hexto7segment left (.x(digits[15:12]),.r(sev_seg_data[27:21]));
 hexto7segment mid_left (.x(digits[11:8]),.r(sev_seg_data[20:14]));

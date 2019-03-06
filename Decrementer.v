@@ -3,10 +3,10 @@
 module Decrementer(
     input second,
     input [15:0] adder_value,
-    output [15:0] decrement_value;
-)
+    output [15:0] decrement_value
+);
 
-reg [15:0] decrement_value_reg = 0;
+reg [15:0] decrement_value_reg;
 assign decrement_value = decrement_value_reg;
 
 always @(posedge second) begin
