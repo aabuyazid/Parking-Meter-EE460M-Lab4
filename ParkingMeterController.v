@@ -18,7 +18,7 @@ wire U, L, R, D, SW0, SW1;
 
 wire clkSlow;
 
-reg [15:0] curr_time_reg = 10;
+reg [15:0] curr_time_reg = 0;
 reg below200_reg = 1;
 reg isZero_reg = 1;
 
@@ -35,7 +35,7 @@ Debounce b3 (clk, d, D);
 Debounce b4 (clk, sw0, SW0);
 Debounce b5 (clk, sw1, SW1);
 
-milsec50(clk, clkSlow);
+milsec50 s1 (.clk(clk), .clkSlow(clkSlow)); //actually 100ms
 
 always @(posedge clkSlow) begin
     if(decrement == `SECOND) begin
@@ -45,37 +45,32 @@ always @(posedge clkSlow) begin
     end
     else begin
         decrement <= decrement + 1;
-        //curr_time_reg <= curr_time_reg; 
-//        if(U) 
-//            curr_time_reg <= curr_time_reg + 10;
-//         else begin
-//            if(L)
-//                curr_time_reg <= curr_time_reg + 180;
-//            else begin 
-//                if(R)
-//                    curr_time_reg <= curr_time_reg + 200;
-//                else begin 
-//                    if(D)
-//                        curr_time_reg <= curr_time_reg + 550; 
-//                    else begin 
-//                        if(SW0)
-//                            curr_time_reg <= 10;
-//                        else begin 
-//                            if(SW1)
-//                                curr_time_reg <= 205;
-//                            else begin
-//                                curr_time_reg <= curr_time_reg;
-//                            end 
-//                        end 
-//                    end 
-//                end 
-//            end 
-//        end  
-//        if(curr_time_reg > 9999)
-//            curr_time_reg <= 9999;
+        if(U) 
+            curr_time_reg <= curr_time_reg + 10;
+         else begin
+            if(L)
+                curr_time_reg <= curr_time_reg + 180;
+            else begin 
+                if(R)
+                    curr_time_reg <= curr_time_reg + 200;
+                else begin 
+                    if(D)
+                        curr_time_reg <= curr_time_reg + 550; 
+                    else begin 
+                        if(SW0)
+                            curr_time_reg <= 10;
+                        else begin 
+                            if(SW1)
+                                curr_time_reg <= 205;
+                        end 
+                    end 
+                end 
+            end 
+        end  
+        if(curr_time_reg > 9999)
+            curr_time_reg <= 9999;
     end
 end
-
 always @(*) begin
     if(curr_time_reg < 200) begin
         isZero_reg <= (curr_time_reg == 0) ? 1:0;
