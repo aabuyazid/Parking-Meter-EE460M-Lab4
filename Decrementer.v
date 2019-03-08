@@ -1,7 +1,6 @@
 `timescale 1ns / 1ps
 
 module Decrementer(
-    input clk,
     input half_second,
     input [15:0] adder_value,
     output [15:0] decrement_value,

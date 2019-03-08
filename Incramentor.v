@@ -8,8 +8,8 @@ module Incrementer(clk, u, l, r, d, sw0, sw1, timeIn, timeOut);
     input d;
     input sw0;
     input sw1;
-    input timeIn;
-    output timeOut;
+    input [15:0] timeIn;
+    output [15:0] timeOut;
     wire U, L, R, D, SW0, SW1;
     reg [15:0] timeCurrent = 0;
     
@@ -21,7 +21,7 @@ module Incrementer(clk, u, l, r, d, sw0, sw1, timeIn, timeOut);
     Debounce b5 (clk, sw1, SW1);
     
     assign timeOut = (timeCurrent < 9999)? timeCurrent : 9999; 
-    always@(U,L,R,D,SW0,SW1, timeIn) begin
+    always@(posedge clk) begin
         case({U,L,R,D,SW0,SW1})
             6'b100000 : timeCurrent <= timeCurrent + 10;
             6'b010000 : timeCurrent <= timeCurrent + 180;

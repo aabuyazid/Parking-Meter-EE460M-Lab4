@@ -11,9 +11,7 @@ module ParkingMeter(
 
 wire SSEGclk, second, half_second;
 
-wire dp;
-
-wire below200; // if high, should start blinking
+wire below200, is0; // if high, should start blinking
 
 wire [15:0] adder_value, decrement_value, digits;
 
@@ -33,7 +31,7 @@ Decrementer dec (.half_second(half_second),
     .adder_value(adder_value),.decrement_value(decrement_value),
     .below200(below200));
 
-DisplayController dis (.clk(clk),.meter_data(decrement_value),
+DisplayController dis (.clk(clk),.second(second),.is0(is0),.below200(below200),.meter_data(decrement_value),
     .an(an),.sseg(sseg));
     
  endmodule

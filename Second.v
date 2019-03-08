@@ -2,10 +2,9 @@
 
 module Second(
     input clk,
-    output second
+    output reg second
 );
 
-reg second = 0;
 reg [26:0] second_divider = 0;
 
 always @(posedge clk) 

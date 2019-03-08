@@ -2,10 +2,9 @@
 
 module HalfSecond(
     input clk,
-    output half_second
+    output reg half_second
 );
 
-reg half_second = 0;
 reg [25:0] second_divider = 0;
 
 always @(posedge clk) 
