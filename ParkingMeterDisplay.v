@@ -3,8 +3,9 @@
 module ParkingMeterDisplay(
     input clk,
     input second,
+    input half_second,
+    input isZero,
     input below200,
-    input is0,
     input [27:0] sev_seg_data,
     output reg [3:0] an,
     output reg [6:0] sseg
@@ -39,12 +40,12 @@ module ParkingMeterDisplay(
     always @(posedge second) begin
         alternate = ~alternate;
     end
-    always @(second) begin
+    always @(posedge half_second) begin
         alternateFaster = ~alternateFaster;
     end
 
     always @(posedge clk) begin
-        if((below200 && alternate) | (is0 && alternateFaster))
+        if((below200 && alternate) || (isZero && alternateFaster))
             an = 4'b1111;
         else begin
             case (state)
