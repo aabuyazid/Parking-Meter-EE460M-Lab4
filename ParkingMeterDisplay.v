@@ -11,7 +11,8 @@ module ParkingMeterDisplay(
     output reg [6:0] sseg
     );
     
-    reg alternate, alternateFaster = 0;
+    reg alternate = 0;
+    reg alternateFaster = 0;
 
     reg [1:0] state;
     reg [1:0] next_state;
@@ -49,10 +50,10 @@ module ParkingMeterDisplay(
             an = 4'b1111;
         else begin
             case (state)
-                2'b00: an = 4'b0111;
-                2'b01: an = 4'b1011;
-                2'b10: an = 4'b1101;
-                2'b11: an = 4'b1110;
+                2'b00: an = 4'b1011;
+                2'b01: an = 4'b1101;
+                2'b10: an = 4'b1110;
+                2'b11: an = 4'b0111;
             endcase
         end
         state <= next_state;

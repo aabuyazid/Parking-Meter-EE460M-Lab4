@@ -2,12 +2,15 @@
 
 module milsec50(clk, clkSlow);
     input clk;
-    output clkSlow;
+    output reg clkSlow;
     
-    reg [21:0] count;
+    reg [24:0] count;
     
-    assign clkSlow = count[21];
     always@( posedge clk) begin
-       count = count + 1;
+        if(count == 5000000)
+            clkSlow <= ~clkSlow;
+        else
+            count = count + 1;
     end
+    
 endmodule

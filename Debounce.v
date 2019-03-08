@@ -8,7 +8,7 @@ module Debounce(clk, in, out);
     reg cleaner, clean, pulse;
     wire clkSlow;
     milsec50(clk, clkSlow);
-    assign out = pulse & clean;
+    assign out = pulse && clean;
     always@(posedge clkSlow) begin
        pulse <= ~clean;
    end

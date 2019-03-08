@@ -9,7 +9,7 @@ module bin2BCD(
     always @ (*) begin
         temp = bin_value;
         BCD_value [3:0] = temp % 10;
-        temp = temp/10;
+        temp = temp/10; 
         BCD_value [7:4] = temp % 10;
         temp = temp/10;
         BCD_value [11:8] = temp % 10;
